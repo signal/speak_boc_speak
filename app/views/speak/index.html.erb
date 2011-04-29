@@ -1,0 +1,13 @@
+<html>
+<head>
+</head>
+<body>
+<% form_tag '' do -%>
+  <%= select_tag :voice, options_for_select(@voices, @voice) %>
+  <%= label_tag :message %>
+  <%= text_field_tag :message %>
+
+  <%= submit_tag 'Speak!'%>
+<% end -%>
+</body>
+</html>

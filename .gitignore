@@ -1,0 +1,11 @@
+db/development_structure.sql
+tmp/*
+coverage*
+log/*
+*.swp
+*.swo
+.DS_Store
+tags
+*.orig
+.bundle
+
