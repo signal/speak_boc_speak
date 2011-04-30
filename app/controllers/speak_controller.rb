@@ -7,7 +7,13 @@ class SpeakController < ApplicationController
       if @voice.present?
         args.unshift('-v', @voice)
       end
+
+      path = Rails.root + "public"
+
       system "say", *args
+      system "say", *args.concat(['-o', "#{path}/sound"])
+      system "lame", "#{path}/sound.aiff", "#{path}/sound.mp3"
+      Juggernaut.publish("speak_boc_speak", "http://#{request.host_with_port}/sound.mp3");
     end
   end
 end

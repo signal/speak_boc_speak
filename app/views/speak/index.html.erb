@@ -85,6 +85,17 @@ select, input {
     }
 
 </style>
+
+<script src="http://<%= request.host %>:8080/application.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript" charset="utf-8">
+  var jug = new Juggernaut;
+  jug.subscribe("speak_boc_speak", function(data) {
+    document.getElementById("audio_element").innerHTML =
+      "<embed src='" + data + "' hidden='true' autostart='true' loop='false' />";
+  });
+</script>
+
 </head>
 <body>
 <div class="robot">
@@ -96,5 +107,6 @@ select, input {
   <%= submit_tag 'Speak!'%>
 <% end -%>
 </div><!-- /robot -->
+<div id='audio_element'></div>
 </body>
 </html>
