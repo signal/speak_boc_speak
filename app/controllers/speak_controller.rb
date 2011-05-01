@@ -8,12 +8,7 @@ class SpeakController < ApplicationController
         args.unshift('-v', @voice)
       end
 
-      path = Rails.root + "public"
-
-      system "say", *args
-      system "say", *args.concat(['-o', "#{path}/sound"])
-      system "lame", "#{path}/sound.aiff", "#{path}/sound.mp3"
-      Juggernaut.publish("speak_boc_speak", "http://#{request.host_with_port}/sound.mp3");
+      Say.create!(:voice => @voice, :phrase => params[:message])
     end
   end
 end

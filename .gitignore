@@ -9,4 +9,6 @@ tags
 *.orig
 .bundle
 .rvmrc
-
+db/*.sqlite3
+public/audio/*
+db/schema.rb

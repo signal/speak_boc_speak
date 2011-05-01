@@ -19,3 +19,5 @@ SpeakBocSpeak::Application.configure do
 
   config.active_support.deprecation = :log
 end
+
+APP_URL = "http://localhost:3000"

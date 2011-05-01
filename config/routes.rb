@@ -1,4 +1,4 @@
 SpeakBocSpeak::Application.routes.draw do
-  match '/' => 'speak#index'
+  root :to => 'speak#index'
   match '/:controller(/:action(/:id))'
 end
