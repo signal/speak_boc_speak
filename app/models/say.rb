@@ -12,7 +12,7 @@ class Say < ActiveRecord::Base
     path = Rails.root + "public/audio"
     FileUtils.mkdir_p(path)
 
-    system "say", "-v", voice, "-o", "#{path}/#{id}", phrase
+    system "say", "-v", voice, "-o", "#{path}/#{id}.aiff", phrase
     system "lame", "#{path}/#{id}.aiff", "#{path}/#{id}.mp3"
     Juggernaut.publish("speak_boc_speak", "#{APP_URL}/audio/#{id}.mp3")
   end
