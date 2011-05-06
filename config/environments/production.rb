@@ -27,5 +27,3 @@ SpeakBocSpeak::Application.configure do
   # Enable threaded mode
   # config.threadsafe!
 end
-
-APP_URL = "http://office.signalhq.com:3000"
