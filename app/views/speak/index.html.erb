@@ -1,112 +1,121 @@
 <html>
-<head>
-<meta name="viewport" content="width = 320, initial-scale = 1.0">
-<style type="text/css">
+  <head>
+    <meta name="viewport" content="width = 320, initial-scale = 1.0">
+    <style type="text/css">
+      html, body, div, span, applet, object, iframe,
+      h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+      a, abbr, acronym, address, big, cite, code,
+      del, dfn, em, font, img, ins, kbd, q, s, samp,
+      small, strike, strong, sub, sup, tt, var,
+      dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-weight: inherit;
+        font-style: inherit;
+        font-family: inherit;
+        vertical-align: baseline;
+      }
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-weight: inherit;
-  font-style: inherit;
-  font-family: inherit;
-  vertical-align: baseline;
-}
+      body {
+        background: #fefdf3;
+      }
 
-body {
-    background: #fefdf3;
-    }
-    
-.robot {
-    background: url(/images/beer-robot.jpg) 0 20px no-repeat;
-    margin: 0 auto;
-    height: 100%;
-    width: 760px;
-    padding-top: 160px;
-    }
+      .robot {
+        background: url(/images/beer-robot.jpg) 0 20px no-repeat;
+        margin: 0 auto;
+        height: 100%;
+        width: 760px;
+        padding-top: 160px;
+      }
 
-form {
-    width: 540px;
-    padding: 18px 0;
-    margin: 0 auto;
-    font-family: arial, helvetica, sans-serif;
-    font-size: 16px;
-    text-align: center;
-    background: #fff;
-    border: 1px solid #f3f2e5;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    color: #555;
-    }
-    
-select, input {
-    font-size: 16px;
-    }
-    
-    select {
+      form {
+        width: 540px;
+        padding: 18px 0;
+        margin: 0 auto;
+        font-family: arial, helvetica, sans-serif;
+        font-size: 16px;
+        text-align: center;
+        background: #fff;
+        border: 1px solid #f3f2e5;
+        border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        color: #555;
+      }
+
+      select, input {
+        font-size: 16px;
+      }
+
+      select {
         margin-right: 8px;
-        }
-        
-    input[type="text"] {
+      }
+
+      input[type="text"] {
         margin: 0 8px;
+      }
+
+      @media only screen and (max-device-width: 480px) {
+        .robot {
+          background-position: 50% 0;
+          margin: 0 auto;
+          height: 100%;
+          width: auto;
+          padding-top: 140px;
         }
 
-@media only screen and (max-device-width: 480px) {
-
-.robot {
-    background-position: 50% 0;
-    margin: 0 auto;
-    height: 100%;
-    width: auto;
-    padding-top: 140px;
-    }
-
-
-    form {
-        width: auto;
-        margin: 0 20px;
+        form {
+          width: auto;
+          margin: 0 20px;
         }
-        
-    input, select, input[type="text"], label {
-        display: block;
-        margin: 0 auto 8px;
+
+        input, select, input[type="text"], label {
+          display: block;
+          margin: 0 auto 8px;
         }
-        
+
         input[type="text"] {
-            margin: 0 auto 16px;
-            }
-    }
+          margin: 0 auto 16px;
+        }
+      }
+    </style>
 
-</style>
+    <script src="http://code.jquery.com/jquery-1.6.min.js" type="text/javascript"></script>
+    <script src="http://<%= request.host %>:8080/application.js" type="text/javascript" charset="utf-8"></script>
 
-<script src="http://<%= request.host %>:8080/application.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      function playAudio(data) {
+        document.getElementById("audio_element").innerHTML =
+          "<embed src='" + data + "' hidden='true' autostart='true' loop='false' />";
+      }
 
-<script type="text/javascript" charset="utf-8">
-  var jug = new Juggernaut;
-  jug.subscribe("speak_boc_speak", function(data) {
-    document.getElementById("audio_element").innerHTML =
-      "<embed src='" + data + "' hidden='true' autostart='true' loop='false' />";
-  });
-</script>
+      function displayCaption() {
+        $("#phrase").html("Say what?");
+        $("#phrase").hide().fadeIn(500).delay(5000).fadeOut(500);
+      }
 
-</head>
-<body>
-<div class="robot">
-<% form_tag '' do -%>
-  <%= select_tag :voice, options_for_select(@voices, @voice) %>
-  <%= label_tag :says %>
-  <%= text_field_tag :message %>
+      var jug = new Juggernaut;
+      jug.subscribe("speak_boc_speak", function(data) {
+        displayCaption();
+        playAudio(data);
+      });
+    </script>
+  </head>
 
-  <%= submit_tag 'Speak!'%>
-<% end -%>
-</div><!-- /robot -->
-<div id='audio_element'></div>
-</body>
+  <body>
+    <div id="phrase" style="display:none;"></div>
+    <div class="robot">
+      <% form_tag '' do -%>
+        <%= select_tag :voice, options_for_select(@voices, @voice) %>
+        <%= label_tag :says %>
+        <%= text_field_tag :message %>
+
+        <%= submit_tag 'Speak!'%>
+      <% end -%>
+    </div><!-- /robot -->
+    <div id='audio_element'></div>
+  </body>
+
 </html>
