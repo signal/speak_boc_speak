@@ -82,10 +82,14 @@
       }
     </style>
 
-    <script src="http://code.jquery.com/jquery-1.6.min.js" type="text/javascript"></script>
-    <script src="http://<%= request.host %>:8080/application.js" type="text/javascript" charset="utf-8"></script>
+    <%= javascript_include_tag "jquery.min.js", "rails.js", "application.js", "http://#{request.host}:8080/application.js" %>
+    <%= csrf_meta_tag %>
 
     <script type="text/javascript" charset="utf-8">
+      function clearMessage() {
+        $('#message').val('');
+      }
+
       function playAudio(url) {
         document.getElementById("audio_element").innerHTML =
           "<embed src='" + url + "' hidden='true' autostart='true' loop='false' />";
@@ -96,11 +100,15 @@
         $("#phrase").hide().fadeIn(500).delay(5000).fadeOut(500);
       }
 
-      var jug = new Juggernaut;
-      jug.subscribe("speak_boc_speak", function(data) {
+      function process(data) {
         var dataObject = eval('(' + data + ')');
         displayCaption(dataObject.phrase);
         playAudio(dataObject.url);
+      }
+
+      var jug = new Juggernaut;
+      jug.subscribe("speak_boc_speak", function(data) {
+        process(data);
       });
     </script>
   </head>
@@ -108,12 +116,12 @@
   <body>
     <div id="phrase" style="display:none;"></div>
     <div class="robot">
-      <% form_tag '' do -%>
+      <% form_tag '', :remote => true do -%>
         <%= select_tag :voice, options_for_select(@voices, @voice) %>
         <%= label_tag :says %>
         <%= text_field_tag :message %>
 
-        <%= submit_tag 'Speak!'%>
+        <%= submit_tag 'Speak!' %>
       <% end -%>
     </div><!-- /robot -->
     <div id='audio_element'></div>

@@ -5,7 +5,7 @@ class Say < ActiveRecord::Base
   private
 
   def say_it
-    system "say", "-v", voice, phrase 
+    system "say", "-v", voice, phrase
   end
 
   def publish_audio_file
@@ -14,7 +14,11 @@ class Say < ActiveRecord::Base
 
     system "say", "-v", voice, "-o", "#{path}/#{id}.aiff", phrase
     system "/usr/local/bin/lame", "#{path}/#{id}.aiff", "#{path}/#{id}.mp3"
-    Juggernaut.publish("speak_boc_speak", "{'url' : '/audio/#{id}.mp3', 'phrase' : '#{phrase}', 'voice' : '#{voice}'}")
+    Juggernaut.publish("speak_boc_speak", data)
+  end
+
+  def data
+    "{'url' : '/audio/#{id}.mp3', 'phrase' : '#{phrase}', 'voice' : '#{voice}'}"
   end
 
 end

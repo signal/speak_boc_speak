@@ -8,7 +8,13 @@ class SpeakController < ApplicationController
         args.unshift('-v', @voice)
       end
 
-      Say.create!(:voice => @voice, :phrase => params[:message])
+      say = Say.create!(:voice => @voice, :phrase => params[:message])
+
+      respond_to do |format|
+        format.html
+        format.js { render :js => "clearMessage();" }
+      end
     end
+
   end
 end
