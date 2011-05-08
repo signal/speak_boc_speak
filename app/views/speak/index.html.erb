@@ -86,20 +86,21 @@
     <script src="http://<%= request.host %>:8080/application.js" type="text/javascript" charset="utf-8"></script>
 
     <script type="text/javascript" charset="utf-8">
-      function playAudio(data) {
+      function playAudio(url) {
         document.getElementById("audio_element").innerHTML =
-          "<embed src='" + data + "' hidden='true' autostart='true' loop='false' />";
+          "<embed src='" + url + "' hidden='true' autostart='true' loop='false' />";
       }
 
-      function displayCaption() {
-        $("#phrase").html("Say what?");
+      function displayCaption(phrase) {
+        $("#phrase").html(phrase);
         $("#phrase").hide().fadeIn(500).delay(5000).fadeOut(500);
       }
 
       var jug = new Juggernaut;
       jug.subscribe("speak_boc_speak", function(data) {
-        displayCaption();
-        playAudio(data);
+        var dataObject = eval('(' + data + ')');
+        displayCaption(dataObject.phrase);
+        playAudio(dataObject.url);
       });
     </script>
   </head>

@@ -14,7 +14,7 @@ class Say < ActiveRecord::Base
 
     system "say", "-v", voice, "-o", "#{path}/#{id}.aiff", phrase
     system "/usr/local/bin/lame", "#{path}/#{id}.aiff", "#{path}/#{id}.mp3"
-    Juggernaut.publish("speak_boc_speak", "/audio/#{id}.mp3")
+    Juggernaut.publish("speak_boc_speak", "{'url' : '/audio/#{id}.mp3', 'phrase' : '#{phrase}', 'voice' : '#{voice}'}")
   end
 
 end
