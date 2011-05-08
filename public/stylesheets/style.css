@@ -1,0 +1,95 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  background: #fefdf3;
+}
+
+.robot {
+  background: url(/images/beer-robot.jpg) 0 20px no-repeat;
+  margin: 0 auto;
+  height: 100%;
+  width: 760px;
+  padding-top: 160px;
+}
+
+#phrase {
+  border: 1px solid black;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  background: white;
+  padding: 20px;
+  width: 300px;
+  margin-left: 200px;
+  margin-bottom: 15px;
+}
+
+#phrase {
+  font-family: Times New Roman, Times, serif;
+  font-size: 22px;
+  text-align: center;
+}
+
+form {
+  width: 540px;
+  padding: 18px 0;
+  margin: 0 auto;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #f3f2e5;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  color: #555;
+}
+
+select, input {
+  font-size: 16px;
+}
+
+select {
+  margin-right: 8px;
+}
+
+input[type="text"] {
+  margin: 0 8px;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .robot {
+    background-position: 50% 0;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+    padding-top: 140px;
+  }
+
+  form {
+    width: auto;
+    margin: 0 20px;
+  }
+
+  input, select, input[type="text"], label {
+    display: block;
+    margin: 0 auto 8px;
+  }
+
+  input[type="text"] {
+    margin: 0 auto 16px;
+  }
+}
