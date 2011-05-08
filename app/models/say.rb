@@ -18,7 +18,7 @@ class Say < ActiveRecord::Base
   end
 
   def data
-    "{'url' : '/audio/#{id}.mp3', 'phrase' : '#{phrase}', 'voice' : '#{voice}'}"
+    "{\"url\" : \"/audio/#{id}.mp3\", \"phrase\" : \"#{phrase}\", \"voice\" : \"#{voice}\"}"
   end
 
 end
