@@ -1,5 +1,12 @@
-$("#say_form").bind("ajax:complete", function() {
-  $('#message').val('');
+$(document).ready(function() {
+  $("#say_form").bind("ajax:complete", function() {
+    $('#message').val('');
+  });
+
+  var jug = new Juggernaut;
+  jug.subscribe("speak_boc_speak", function(data) {
+    process(data);
+  });
 });
 
 function playAudio(url) {
@@ -18,8 +25,3 @@ function process(data) {
   displayCaption(dataObject.phrase);
   playAudio(dataObject.url);
 }
-
-var jug = new Juggernaut;
-jug.subscribe("speak_boc_speak", function(data) {
-  process(data);
-});
