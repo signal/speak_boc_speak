@@ -106,8 +106,7 @@
       }
 
       function playAudio(url) {
-        document.getElementById("audio_element").innerHTML =
-          "<embed src='" + url + "' hidden='true' autostart='true' loop='false' />";
+        $("#audio_element").html("<embed src='" + url + "' hidden='true' autostart='true' loop='false' />");
       }
 
       function displayCaption(phrase) {
