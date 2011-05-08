@@ -101,11 +101,25 @@
 
     <%= javascript_include_tag "jquery.min.js", "rails.js", "application.js", "http://#{request.host}:8080/application.js" %>
     <%= csrf_meta_tag %>
+  </head>
+
+  <body>
+    <div class="robot">
+      <div id="phrase" style="visibility:hidden;"><span id="phrase_text"></span></div>
+      <% form_tag '', :remote => true, :id => 'say_form' do -%>
+        <%= select_tag :voice, options_for_select(@voices, @voice) %>
+        <%= label_tag :says %>
+        <%= text_field_tag :message %>
+
+        <%= submit_tag 'Speak!' %>
+      <% end -%>
+    </div><!-- /robot -->
+    <div id='audio_element'></div>
 
     <script type="text/javascript" charset="utf-8">
-      function clearMessage() {
+      $("#say_form").bind("ajax:complete", function() {
         $('#message').val('');
-      }
+      });
 
       function playAudio(url) {
         $("#audio_element").html("<embed src='" + url + "' hidden='true' autostart='true' loop='false' />");
@@ -129,20 +143,6 @@
         process(data);
       });
     </script>
-  </head>
-
-  <body>
-    <div class="robot">
-      <div id="phrase" style="visibility:hidden;"><span id="phrase_text"></span></div>
-      <% form_tag '', :remote => true do -%>
-        <%= select_tag :voice, options_for_select(@voices, @voice) %>
-        <%= label_tag :says %>
-        <%= text_field_tag :message %>
-
-        <%= submit_tag 'Speak!' %>
-      <% end -%>
-    </div><!-- /robot -->
-    <div id='audio_element'></div>
   </body>
 
 </html>

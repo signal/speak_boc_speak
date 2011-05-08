@@ -12,7 +12,7 @@ class SpeakController < ApplicationController
 
       respond_to do |format|
         format.html
-        format.js { render :js => "clearMessage();" }
+        format.js
       end
     end
 
