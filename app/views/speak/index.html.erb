@@ -30,6 +30,21 @@
         padding-top: 160px;
       }
 
+      #phrase {
+        border: 1px solid black;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        background: white;
+        padding: 20px;
+        width: 300px;
+        margin-left: 200px;
+        margin-bottom: 15px;
+      }
+
+      #phrase {
+        text-align: center;
+      }
+
       form {
         width: 540px;
         padding: 18px 0;
@@ -96,8 +111,10 @@
       }
 
       function displayCaption(phrase) {
-        $("#phrase").html(phrase);
-        $("#phrase").hide().fadeIn(500).delay(5000).fadeOut(500);
+        $("#phrase_text").html(phrase);
+        $("#phrase").css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0}).
+          delay(5000).
+          css({opacity: 1.0}).animate({opacity: 0.0});
       }
 
       function process(data) {
@@ -114,8 +131,8 @@
   </head>
 
   <body>
-    <div id="phrase" style="display:none;"></div>
     <div class="robot">
+      <div id="phrase" style="visibility:hidden;"><span id="phrase_text"></span></div>
       <% form_tag '', :remote => true do -%>
         <%= select_tag :voice, options_for_select(@voices, @voice) %>
         <%= label_tag :says %>
