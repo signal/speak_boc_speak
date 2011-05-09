@@ -16,7 +16,7 @@ function playAudio(url) {
 function displayCaption(phrase) {
   $("#phrase_text").text(phrase);
   $("#phrase").css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0}).
-    delay(5000).
+    delay(10000).
     css({opacity: 1.0}).animate({opacity: 0.0});
 }
 
